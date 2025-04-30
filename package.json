@@ -1,0 +1,22 @@
+{
+  "name": "plevetube",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/googoonaem/plevetube.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/googoonaem/plevetube/issues"
+  },
+  "homepage": "https://github.com/googoonaem/plevetube#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
