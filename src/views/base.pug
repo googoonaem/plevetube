@@ -5,9 +5,15 @@ html(lang="ko")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title #{pageTitle} ::: plevetube💙💜🩷❤️🖤
         link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+
     body 
         header
+            h1=pageTitle
             ul 
+                li 
+                    form(method="GET" action="/search")
+                        input(placeholder="search by title", name="keyword", type="text")
+                        input(type="submit", value="🔍")
                 li 
                     a(href="/videos/upload") Upload Video📼
                 li 

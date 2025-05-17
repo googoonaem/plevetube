@@ -1,7 +1,11 @@
 extends base
 
 block content
-    form(method="POST")
+    if errMsg 
+        span=errMsg
+    form(method="POST", action="/videos/upload")
         input(placeholder="Title", required, type="text", name="title")
-        input(placeholder="url", required, type="text", name="url")
+        input(placeholder="Url", required, type="text", name="url")
+        input(placeholder="Description", required, type="text", name="description")
+        input(placeholder="Hashtags", required, type="text", name="hashtags")
         input(type="submit", value="upload video")

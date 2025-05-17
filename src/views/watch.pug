@@ -12,7 +12,12 @@ block content
             allowfullscreen
             )
     h2=video.title
+    p=video.description
+    each hashtag in video.hashtags 
+        span(style="padding: 4px 10px; font-size:13px;background-color:#999; color:#ccc; border-radius:9px; margin:3px;")=hashtag
     - const count = video.views ?? 0
     h3 #{count} #{count <= 1 ? 'view' : 'views'}
     a(href=`${video.id}/edit`)
         small Edit Video →
+    a(href=`${video.id}/delete`)
+        small Delete Video →

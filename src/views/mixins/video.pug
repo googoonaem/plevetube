@@ -11,7 +11,7 @@ mixin videoBlock(info)
             )
         a(href="/videos/" + info.id)=info.title
         ul 
-            li #{info.rating}/5
+            li #{info.meta.rating}/5
             li #{info.comments} comments
-            li Posted at #{info.createdAt}
+            li Posted at #{info.formattedCreatedAt}
             li #{info.views} views

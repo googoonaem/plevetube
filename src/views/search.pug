@@ -1,11 +1,11 @@
-extends base
+extends base 
 include mixins/video
 
-
-block content
+block content 
+    h1 Searching: #{keyword}...
     if errMsg 
         span=errMsg
     each video in videos
         +videoBlock(video)
     else 
-        p Sorry, nothing found.
+        p Sorry, no results found for #{keyword}
