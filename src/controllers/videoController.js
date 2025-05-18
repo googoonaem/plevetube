@@ -158,7 +158,7 @@ export const postEdit = async (req, res) => {
   try {
     const video = await Video.exists({ _id: id });
     if (!video) {
-      return res.render("404", { pageTitle: "Video not found." });
+      return res.status(404).render("404", { pageTitle: "Video not found." });
     }
     await Video.findByIdAndUpdate(id, {
       title,
@@ -168,7 +168,7 @@ export const postEdit = async (req, res) => {
     });
     res.redirect(`/videos/${id}`);
   } catch (error) {
-    return res.render("errors/server-error", {
+    return res.status(500).render("errors/server-error", {
       pageTitle: "error",
       errMsg: error.message,
     });
@@ -189,7 +189,7 @@ export const postUpload = async (req, res) => {
     });
     console.log("create success");
   } catch (error) {
-    return res.render("upload", {
+    return res.status(500).render("upload", {
       pageTitle: "Upload Video",
       errMsg: error._message,
     });

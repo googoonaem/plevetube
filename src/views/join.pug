@@ -1,0 +1,17 @@
+extends base
+
+block content 
+   if errMsg 
+      span=errMsg
+   form(method="POST")
+      input(type="email", name="email", required, placeholder="abc@ef.ghj")
+      input(type="text", name="username", required, placeholder="Username")
+      input(type="password", name="password", required, placeholder="Password")
+      input(type="password", name="password2", required, placeholder="Confirm Password")
+      input(type="text", name="name", required, placeholder="Name")
+      input(type="text", name="location", required, placeholder="Location")
+      input(type="submit", value="Join")
+   hr
+   div
+      span Already have an account? 
+      a(href="/login") Log in now →

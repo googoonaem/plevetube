@@ -15,9 +15,21 @@ html(lang="ko")
                         input(placeholder="search by title", name="keyword", type="text")
                         input(type="submit", value="🔍")
                 li 
-                    a(href="/videos/upload") Upload Video📼
-                li 
                     a(href="/") home🏠
+                if loggedIn
+                    li 
+                        a(href="logout") Logout
+                    li 
+                        a(href="/my-profile") #{loggedInUser.name}의 Profile
+                else
+                    li
+                        a(href="/join") Join
+                    li 
+                        a(href="/login") Login
+                    li 
+                        a(href="/videos/upload") Upload Video📼
+                li
+                    a(href="/color") color칩
             //- - const usernum = Math.floor(Math.random() * 5);
             //- if fakeUser[usernum].loggedIn
             //-     small Hello #{fakeUser[usernum].username}!!

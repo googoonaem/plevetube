@@ -1,0 +1,104 @@
+doctype html
+html(lang="ko")
+  head
+    meta(charset="UTF-8")
+    title 검정 픽셀 상대 위치 출력
+    style.
+      body {
+        font-family: sans-serif;
+        padding: 1rem;
+      }
+      #canvasContainer {
+        position: relative;
+        display: inline-block;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+      }
+      canvas {
+        display: block;
+      }
+      #info {
+        color: #555;
+        margin-top: 1rem;
+      }
+            .marker {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: blink 1.2s infinite ease-in-out;
+        pointer-events: none;
+      }
+      @keyframes blink {
+        0%, 100% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(1.7);
+        }
+      }
+  body
+    h2 Ctrl + V로 이미지 붙여넣기 (클립보드)
+    div#canvasContainer
+      canvas#canvas
+    div#info 검정 픽셀 위치가 퍼센트로 콘솔에 출력됩니다.
+
+    script.
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const info = document.getElementById('info');
+      const container = document.getElementById('canvasContainer');
+
+
+      document.addEventListener('paste', (event) => {
+        const items = event.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf("image") === 0) {
+            const blob = items[i].getAsFile();
+            const img = new Image();
+            img.onload = () => {
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+
+              const imageData = ctx.getImageData(0, 0, img.width, img.height);
+              const data = imageData.data;
+              const blackPixels = [];
+
+              for (let y = 0; y < img.height; y++) {
+                for (let x = 0; x < img.width; x++) {
+                  const i = (y * img.width + x) * 4;
+                  const r = data[i];
+                  const g = data[i + 1];
+                  const b = data[i + 2];
+
+                  if (r === 255 && g === 255 && b === 255) {
+                    blackPixels.push({ x, y });
+                    const xPercent = ((x / img.width) * 100).toFixed(1);
+                    const yPercent = ((y / img.height) * 100).toFixed(1);
+                    console.log(`검정 픽셀: (x: ${x}, y: ${y}) → 위치: (${xPercent}%, ${yPercent}%)`);
+                  }
+                }
+              }
+
+              ctx.fillStyle = 'red';
+              blackPixels.forEach(({ x, y }) => {
+              const marker = document.createElement('div');
+                marker.className = 'marker';
+                marker.style.left = `${x}px`;
+                marker.style.top = `${y}px`;
+                container.appendChild(marker);
+              });
+
+              info.textContent = `검정 픽셀 수: ${blackPixels.length}`;
+              console.log(`검정 픽셀 총 수: ${blackPixels.length}`);
+            };
+            img.src = URL.createObjectURL(blob);
+            break;
+          }
+        }
+      });
